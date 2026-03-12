@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Дмитро & Іванна — Весілля</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* ── Global ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background: #fff;
+    }
+
+    /* ── Hero: true full-screen on every device ───────────────────
+       100dvh = dynamic viewport height — the most reliable unit
+       across iOS Safari, Android Chrome, and desktop browsers.
+       Fallback chain: 100svh → 100vh for older engines.         */
+    #hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;          /* universal fallback */
+      height: 100svh;         /* mobile: excludes collapsible browser chrome */
+      height: 100dvh;         /* best: always equals the visible area */
+      overflow: hidden;
+    }
+
+    /* ── Background image ────────────────────────────────────────── */
+    #hero {
+      background: #000; /* fills sides when image doesn't cover full width */
+    }
+
+    #hero img.hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;   /* show the FULL image — no cropping, no zoom */
+      object-position: center center;
+      display: block;
+      z-index: 0;
+    }
+
+    /* ── Scroll-cue bounce ───────────────────────────────────────── */
+    @keyframes bounce-slow {
+      0%, 100% { transform: translateX(-50%) translateY(0);    opacity: 0.75; }
+      50%       { transform: translateX(-50%) translateY(9px);  opacity: 1;    }
+    }
+    .scroll-cue {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      cursor: pointer;
+      animation: bounce-slow 2.2s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════  HERO — Phase 1  ═══════════════ -->
+  <section id="hero">
+
+    <!-- Full-screen background photo (text baked into the image) -->
+    <img
+      class="hero-bg"
+      src="img/hero-bg.jpg"
+      alt="Дмитро & Іванна — весільне запрошення"
+      loading="eager"
+      fetchpriority="high"
+    />
+
+    <!-- Scroll-cue chevron — clicking scrolls to the next section -->
+    <div class="scroll-cue" onclick="document.getElementById('next').scrollIntoView({behavior:'smooth'})">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           width="30" height="30" viewBox="0 0 24 24"
+           fill="none" stroke="white" stroke-width="1.5"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 9l-7 7-7-7"/>
+      </svg>
+    </div>
+
+  </section>
+
+  <!-- ── Placeholder: test smooth scroll ─────────────────────────── -->
+  <section id="next" style="height:100vh; background:#fff;"></section>
+
+</body>
+</html>
