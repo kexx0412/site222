@@ -5,11 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Дмитро & Іванна — Весілля</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@1,300;1,400&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { overflow-x: hidden; background: #fff; }
 
+    /* ══════════════  HERO  ══════════════════════════════════════════ */
     #hero {
       position: relative;
       width: 100%;
@@ -43,6 +48,106 @@
       cursor: pointer;
       animation: bounce-cue 2.2s ease-in-out infinite;
     }
+
+    /* ══════════════  SECTION 2  ═════════════════════════════════════ */
+    #invite {
+      background: #fff;
+      padding: 80px 24px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Quotes block */
+    .invite-quotes {
+      max-width: 600px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+      text-align: center;
+      padding-bottom: 72px;
+    }
+
+    .invite-quotes p {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.35rem, 4.5vw, 2rem);
+      color: #2a2a2a;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .invite-quotes p.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Photo frame — torn-paper feel */
+    .invite-photo-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 760px;
+    }
+
+    /* Jagged top edge (SVG mask) */
+    .invite-photo-wrap::before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 48px;
+      background: #fff;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 48' preserveAspectRatio='none'%3E%3Cpath d='M0,48 C150,0 300,40 450,12 C600,-16 750,44 900,18 C1050,-8 1150,36 1200,20 L1200,48 Z' fill='white'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 48' preserveAspectRatio='none'%3E%3Cpath d='M0,48 C150,0 300,40 450,12 C600,-16 750,44 900,18 C1050,-8 1150,36 1200,20 L1200,48 Z' fill='white'/%3E%3C/svg%3E");
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      position: relative;
+      z-index: 2;
+      margin-bottom: -2px;
+    }
+
+    .invite-photo {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center 30%;
+      max-height: 65vh;
+      filter: grayscale(100%);
+    }
+
+    /* Jagged bottom edge */
+    .invite-photo-wrap::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 48px;
+      background: #fff;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 48' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C150,48 300,8 450,36 C600,64 750,4 900,30 C1050,56 1150,12 1200,28 L1200,0 Z' fill='white'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 48' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C150,48 300,8 450,36 C600,64 750,4 900,30 C1050,56 1150,12 1200,28 L1200,0 Z' fill='white'/%3E%3C/svg%3E");
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      position: relative;
+      z-index: 2;
+      margin-top: -2px;
+    }
+
+    /* Names below photo */
+    .invite-names {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2rem, 7vw, 3.2rem);
+      color: #2a2a2a;
+      text-align: center;
+      padding: 48px 24px 80px;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 1s ease 0.2s, transform 1s ease 0.2s;
+    }
+
+    .invite-names.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 
@@ -51,7 +156,6 @@
   <!-- ═══════════════  HERO  ═══════════════ -->
   <section id="hero">
 
-    <!-- Background photo -->
     <img
       class="hero-bg"
       src="img/hero-bg.jpg"
@@ -60,8 +164,7 @@
       fetchpriority="high"
     />
 
-    <!-- Scroll cue -->
-    <div class="scroll-cue" onclick="document.getElementById('next').scrollIntoView({behavior:'smooth'})">
+    <div class="scroll-cue" onclick="document.getElementById('invite').scrollIntoView({behavior:'smooth'})">
       <svg xmlns="http://www.w3.org/2000/svg"
            width="28" height="28" viewBox="0 0 24 24"
            fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"
@@ -72,8 +175,50 @@
 
   </section>
 
-  <!-- Placeholder section for scroll testing -->
-  <section id="next" style="height:100vh; background:#fff;"></section>
+  <!-- ═══════════════  SECTION 2 — INVITE  ═══════════════ -->
+  <section id="invite">
+
+    <div class="invite-quotes">
+      <p>Кажуть, на особливі події запрошують особливих людей</p>
+      <p>Наша особлива подія — весілля, а наші особливі люди — ви.</p>
+      <p>Будемо раді бачити вас на нашому першому сімейному святі !</p>
+    </div>
+
+    <div class="invite-photo-wrap">
+      <img
+        class="invite-photo"
+        src="img/hero-bg2.jpg"
+        alt="Дмитро і Іванна"
+        loading="lazy"
+      />
+    </div>
+
+    <p class="invite-names">Дмитро &amp; Іванна</p>
+
+  </section>
+
+  <script>
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // Stagger quotes
+          if (entry.target.tagName === 'P' && entry.target.closest('.invite-quotes')) {
+            const items = [...entry.target.closest('.invite-quotes').querySelectorAll('p')];
+            items.forEach((el, idx) => {
+              setTimeout(() => el.classList.add('visible'), idx * 200);
+            });
+            observer.unobserve(entry.target);
+          } else {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.invite-quotes p, .invite-names').forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
