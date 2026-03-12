@@ -57,6 +57,18 @@ body{
   vertical-align:bottom;
 }
 
+/* === SCROLL REVEAL FOR PHOTO PANELS === */
+.panel-reveal{
+  opacity:0;
+  transform:scale(1.06);
+  transition:opacity 1.2s cubic-bezier(.25,.46,.45,.94),
+             transform 1.4s cubic-bezier(.25,.46,.45,.94);
+}
+.panel-reveal.revealed{
+  opacity:1;
+  transform:scale(1);
+}
+
 /* === SCROLL CUE === */
 @keyframes bounce-cue{
   0%,100%{transform:translate(-50%,0);opacity:.6}
@@ -339,8 +351,11 @@ body{
   font-size:clamp(1.6rem,6vw,2.6rem);
   color:#fff;
   line-height:1;
-  min-width:2ch;
+  width:2.2ch;
   text-align:center;
+  font-variant-numeric:tabular-nums;
+  display:inline-block;
+  transition:opacity .4s ease;
 }
 .countdown-lbl{
   font-family:'Josefin Sans',sans-serif;
@@ -363,7 +378,7 @@ body{
 </style>
 </head>
 <body>
-<div id="wrapper"><div class="panel" id="hero"><img src="img/hero-bg.jpg" alt="Весільне фото"><div class="countdown-overlay" id="countdown"><div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-lbl">днів</span></div><div class="countdown-sep">:</div><div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-lbl">годин</span></div><div class="countdown-sep">:</div><div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-lbl">хвилин</span></div><div class="countdown-sep">:</div><div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-lbl">секунд</span></div></div><div class="scroll-cue" onclick="document.getElementById('photo2').scrollIntoView({behavior:'smooth'})"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></div></div><div class="panel" id="photo2"><img src="img/hero-bg2.jpg" alt="Дмитро і Іванна"></div><section id="timing">
+<div id="wrapper"><div class="panel" id="hero"><img src="img/hero-bg.jpg" alt="Весільне фото"><div class="countdown-overlay" id="countdown"><div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-lbl">днів</span></div><div class="countdown-sep">:</div><div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-lbl">годин</span></div><div class="countdown-sep">:</div><div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-lbl">хвилин</span></div><div class="countdown-sep">:</div><div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-lbl">секунд</span></div></div><div class="scroll-cue" onclick="document.getElementById('photo2').scrollIntoView({behavior:'smooth'})"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></div></div><div class="panel" id="photo2"><img src="img/hero-bg2.jpg" alt="Дмитро і Іванна" class="panel-reveal"></div><section id="timing">
 <p class="timing-date">12 | 06 | 2026</p>
 <h2 class="timing-title">Timing</h2>
 <div class="timeline">
@@ -386,7 +401,7 @@ body{
 <p class="event-address"><a href="https://maps.app.goo.gl/VQRhQxKyFxk7zZcMA" target="_blank" rel="noopener noreferrer">Ресторан «Замок Видубичі»<br>м. Київ, Набережно-Печерська дорога, 5</a></p>
 </div>
 </div>
-</section><div class="panel" id="photo3"><img src="img/hero-bg3.jpg" alt="Дмитро і Іванна"></div><section id="rsvp">
+</section><div class="panel" id="photo3"><img src="img/hero-bg3.jpg" alt="Дмитро і Іванна" class="panel-reveal"></div><section id="rsvp">
 <h2 class="rsvp-title">Підтвердження присутності</h2>
 <form class="rsvp-form" id="rsvpForm">
 <div class="rsvp-field">
@@ -435,10 +450,13 @@ body{
 <h3>Дякуємо!</h3>
 <p>Вашу відповідь отримано</p>
 </div>
-</section><div class="panel" id="photo4"><img src="img/hero-bg4.jpg" alt="Дмитро і Іванна"></div></div>
+</section><div class="panel" id="photo4"><img src="img/hero-bg4.jpg" alt="Дмитро і Іванна" class="panel-reveal"></div></div>
 <script>
 const o=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');o.unobserve(x.target)}})},{threshold:.15});
 document.querySelectorAll('.event').forEach(el=>o.observe(el));
+
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('revealed');ro.unobserve(x.target)}})},{threshold:.08});
+document.querySelectorAll('.panel-reveal').forEach(el=>ro.observe(el));
 
 // Countdown → June 12, 2026, 10:00 AM Kyiv (EEST UTC+3)
 (function(){
@@ -447,19 +465,21 @@ document.querySelectorAll('.event').forEach(el=>o.observe(el));
   const $h=document.getElementById('cd-hours');
   const $m=document.getElementById('cd-mins');
   const $s=document.getElementById('cd-secs');
-  let prev='';
+  function update(el,val){
+    if(el.textContent===val)return;
+    el.style.opacity='0';
+    setTimeout(()=>{el.textContent=val;el.style.opacity='1';},200);
+  }
   function tick(){
     const diff=target-Date.now();
     if(diff<=0){$d.textContent='0';$h.textContent='00';$m.textContent='00';$s.textContent='00';return;}
-    const d=Math.floor(diff/864e5);
-    const h=String(Math.floor((diff%864e5)/36e5)).padStart(2,'0');
-    const m=String(Math.floor((diff%36e5)/6e4)).padStart(2,'0');
-    const s=String(Math.floor((diff%6e4)/1e3)).padStart(2,'0');
-    const key=d+h+m+s;
-    if(key!==prev){$d.textContent=d;$h.textContent=h;$m.textContent=m;$s.textContent=s;prev=key;}
-    requestAnimationFrame(tick);
+    update($d,String(Math.floor(diff/864e5)));
+    update($h,String(Math.floor((diff%864e5)/36e5)).padStart(2,'0'));
+    update($m,String(Math.floor((diff%36e5)/6e4)).padStart(2,'0'));
+    update($s,String(Math.floor((diff%6e4)/1e3)).padStart(2,'0'));
   }
-  requestAnimationFrame(tick);
+  tick();
+  setInterval(tick,1000);
 })();
 
 document.getElementById('rsvpForm').addEventListener('submit',async function(e){
