@@ -12,7 +12,12 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { overflow-x: hidden; background: #000; }
+    body {
+      overflow-x: hidden;
+      background: #000;
+      /* Prevent pull-to-refresh bounce on iOS that tears images */
+      overscroll-behavior-y: none;
+    }
 
     /* ── Full-screen photo section ───────────────────────────────── */
     .photo-screen {
@@ -22,6 +27,10 @@
       height: 100svh;
       height: 100dvh;
       overflow: hidden;
+      /* GPU acceleration — prevents tearing during scroll */
+      will-change: transform;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     }
 
     .photo-screen img {
@@ -32,6 +41,15 @@
       object-fit: cover;
       object-position: center center;
       display: block;
+    }
+
+    /* Photo 2 contains text — use 'contain' so nothing gets cut */
+    #photo2 {
+      background: #fff;
+    }
+    #photo2 img {
+      object-fit: contain;
+      object-position: center center;
     }
 
     /* ── Scroll cue ──────────────────────────────────────────────── */
@@ -53,11 +71,19 @@
     #timing {
       background: #737373;
       color: #fff;
+      min-height: 100vh;
+      min-height: 100svh;
+      min-height: 100dvh;
       padding: 64px 24px 72px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       font-family: 'Josefin Sans', sans-serif;
+      /* GPU layer — smooth scroll */
+      will-change: transform;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     }
 
     /* Date header */
