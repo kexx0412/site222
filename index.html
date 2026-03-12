@@ -1,258 +1,209 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Дмитро & Іванна — Весілля</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Дмитро & Іванна — Весілля</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+/* === HARD RESET — zero gaps guaranteed === */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+  overflow-x:hidden;
+}
+body{
+  margin:0;
+  padding:0;
+  background:#737373;
+  overflow-x:hidden;
+  overscroll-behavior:none;
+  -webkit-overflow-scrolling:touch;
+  /* GPU layer on body — eliminates scroll jitter */
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet" />
+/* === WRAPPER — single column, no gaps === */
+#wrapper{
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  /* No gap, no space, nothing */
+  gap:0;
+}
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
-      scroll-behavior: smooth;
-    }
-    body {
-      background: #737373;
-      overscroll-behavior: none;
-      -webkit-text-size-adjust: 100%;
-    }
+/* === PHOTO PANELS === */
+.panel{
+  position:relative;
+  width:100%;
+  flex-shrink:0;
+  overflow:hidden;
+}
+.panel img{
+  display:block;
+  width:100%;
+  height:auto;
+  border:0;
+  outline:0;
+  /* Prevents any sub-pixel gap below inline images */
+  vertical-align:bottom;
+}
 
-    /* ── Full-screen section (photo or content) ──────────────────── */
-    .screen {
-      display: block;
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      height: 100svh;
-      height: 100dvh;
-      overflow: hidden;
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-      /* Fixed prevents rubber-band zoom on iOS */
-      background-attachment: scroll;
-    }
+/* === SCROLL CUE === */
+@keyframes bounce-cue{
+  0%,100%{transform:translate(-50%,0);opacity:.6}
+  50%{transform:translate(-50%,9px);opacity:1}
+}
+.scroll-cue{
+  position:absolute;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:10;
+  cursor:pointer;
+  animation:bounce-cue 2.2s ease-in-out infinite;
+}
 
-    /* Photo 2: show full image (has text baked in) */
-    #photo2 {
-      background-color: #fff;
-      background-size: contain;
-    }
-
-    /* ── Scroll cue ──────────────────────────────────────────────── */
-    @keyframes bounce-cue {
-      0%, 100% { transform: translate(-50%, 0);   opacity: 0.6; }
-      50%       { transform: translate(-50%, 9px); opacity: 1;   }
-    }
-    .scroll-cue {
-      position: absolute;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      cursor: pointer;
-      animation: bounce-cue 2.2s ease-in-out infinite;
-    }
-
-    /* ══════════════  TIMING SECTION  ════════════════════════════════ */
-    #timing {
-      background: #737373;
-      color: #fff;
-      min-height: 100vh;
-      min-height: 100svh;
-      min-height: 100dvh;
-      padding: 56px 24px 64px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Josefin Sans', sans-serif;
-    }
-
-    .timing-date {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      font-size: clamp(0.85rem, 2.5vw, 1.05rem);
-      letter-spacing: 0.3em;
-      margin-bottom: 28px;
-      opacity: 0.85;
-    }
-
-    .timing-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 400;
-      font-size: clamp(2.4rem, 8vw, 3.8rem);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 48px;
-    }
-
-    .timeline {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 48px;
-      max-width: 480px;
-      width: 100%;
-    }
-
-    .event {
-      text-align: center;
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .event.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .event-time {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 400;
-      font-size: clamp(2.6rem, 9vw, 3.6rem);
-      line-height: 1;
-      margin-bottom: 6px;
-      position: relative;
-      display: inline-block;
-    }
-
-    .event-time::before {
-      content: '';
-      position: absolute;
-      right: -16px;
-      top: 0;
-      width: 1px;
-      height: 100%;
-      background: rgba(255,255,255,0.5);
-    }
-    .event-time::after {
-      content: '';
-      position: absolute;
-      right: -16px;
-      bottom: 0;
-      width: 12px;
-      height: 1px;
-      background: rgba(255,255,255,0.5);
-    }
-
-    .event-name {
-      font-family: 'Josefin Sans', sans-serif;
-      font-weight: 300;
-      font-size: clamp(0.8rem, 2.8vw, 1rem);
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      margin-top: 16px;
-      margin-bottom: 6px;
-    }
-
-    .event-address-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      font-size: 0.8rem;
-      opacity: 0.7;
-      margin-bottom: 4px;
-    }
-
-    .event-address {
-      font-family: 'Josefin Sans', sans-serif;
-      font-weight: 300;
-      font-size: clamp(0.65rem, 2.2vw, 0.8rem);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      line-height: 1.6;
-    }
-
-    .event-address a {
-      color: #fff;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255,255,255,0.3);
-      transition: border-color 0.3s;
-    }
-    .event-address a:hover {
-      border-color: #fff;
-    }
-
-    .event-divider {
-      width: 40px;
-      height: 1px;
-      background: rgba(255,255,255,0.25);
-      margin: 0 auto;
-    }
-  </style>
+/* === TIMING SECTION === */
+#timing{
+  background:#737373;
+  color:#fff;
+  padding:56px 24px 64px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-family:'Josefin Sans',sans-serif;
+  flex-shrink:0;
+}
+.timing-date{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;
+  font-size:clamp(.85rem,2.5vw,1.05rem);
+  letter-spacing:.3em;
+  margin-bottom:28px;
+  opacity:.85;
+}
+.timing-title{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:400;
+  font-size:clamp(2.4rem,8vw,3.8rem);
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  margin-bottom:48px;
+}
+.timeline{
+  display:flex;
+  flex-direction:column;
+  gap:48px;
+  max-width:480px;
+  width:100%;
+}
+.event{
+  text-align:center;
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .8s ease,transform .8s ease;
+}
+.event.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+.event-time{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:400;
+  font-size:clamp(2.6rem,9vw,3.6rem);
+  line-height:1;
+  margin-bottom:6px;
+  position:relative;
+  display:inline-block;
+}
+.event-time::before{
+  content:'';
+  position:absolute;
+  right:-16px;top:0;
+  width:1px;height:100%;
+  background:rgba(255,255,255,.5);
+}
+.event-time::after{
+  content:'';
+  position:absolute;
+  right:-16px;bottom:0;
+  width:12px;height:1px;
+  background:rgba(255,255,255,.5);
+}
+.event-name{
+  font-family:'Josefin Sans',sans-serif;
+  font-weight:300;
+  font-size:clamp(.8rem,2.8vw,1rem);
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  margin-top:16px;
+  margin-bottom:6px;
+}
+.event-address-label{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;
+  font-size:.8rem;
+  opacity:.7;
+  margin-bottom:4px;
+}
+.event-address{
+  font-family:'Josefin Sans',sans-serif;
+  font-weight:300;
+  font-size:clamp(.65rem,2.2vw,.8rem);
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  line-height:1.6;
+}
+.event-address a{
+  color:#fff;
+  text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.3);
+  transition:border-color .3s;
+}
+.event-address a:hover{border-color:#fff}
+.event-divider{
+  width:40px;height:1px;
+  background:rgba(255,255,255,.25);
+  margin:0 auto;
+}
+</style>
 </head>
-
 <body>
-
-  <section id="hero" class="screen" style="background-image:url('img/hero-bg.jpg')">
-    <div class="scroll-cue" onclick="document.getElementById('photo2').scrollIntoView({behavior:'smooth'})">
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
-           fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"
-           stroke-linecap="round" stroke-linejoin="round">
-        <path d="M19 9l-7 7-7-7"/>
-      </svg>
-    </div>
-  </section><section id="photo2" class="screen" style="background-image:url('img/hero-bg2.jpg')"></section><section id="timing">
-
-    <p class="timing-date">12 | 06 | 2026</p>
-    <h2 class="timing-title">Timing</h2>
-
-    <div class="timeline">
-
-      <div class="event">
-        <span class="event-time">10:00</span>
-        <p class="event-name">Церемонія розпису</p>
-        <p class="event-address-label">Адреса</p>
-        <p class="event-address">
-          <a href="https://maps.app.goo.gl/2eesPVpBnE1YnESw8" target="_blank" rel="noopener noreferrer">
-            Печерський відділ ДРАЦС у м. Києві<br>вул. Цитадельна, 7/10
-          </a>
-        </p>
-      </div>
-
-      <div class="event-divider"></div>
-
-      <div class="event">
-        <span class="event-time">12:00</span>
-        <p class="event-name">Фотосесія</p>
-      </div>
-
-      <div class="event-divider"></div>
-
-      <div class="event">
-        <span class="event-time">14:00</span>
-        <p class="event-name">Святковий банкет</p>
-        <p class="event-address-label">Адреса</p>
-        <p class="event-address">
-          <a href="https://maps.app.goo.gl/VQRhQxKyFxk7zZcMA" target="_blank" rel="noopener noreferrer">
-            Ресторан «Замок Видубичі»<br>м. Київ, Набережно-Печерська дорога, 5
-          </a>
-        </p>
-      </div>
-
-    </div>
-
-  </section><section id="photo3" class="screen" style="background-image:url('img/hero-bg3.jpg')"></section>
-
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.event').forEach(el => observer.observe(el));
-  </script>
-
+<div id="wrapper"><div class="panel" id="hero"><img src="img/hero-bg.jpg" alt="Весільне фото"><div class="scroll-cue" onclick="document.getElementById('photo2').scrollIntoView({behavior:'smooth'})"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></div></div><div class="panel" id="photo2"><img src="img/hero-bg2.jpg" alt="Дмитро і Іванна"></div><section id="timing">
+<p class="timing-date">12 | 06 | 2026</p>
+<h2 class="timing-title">Timing</h2>
+<div class="timeline">
+<div class="event">
+<span class="event-time">10:00</span>
+<p class="event-name">Церемонія розпису</p>
+<p class="event-address-label">Адреса</p>
+<p class="event-address"><a href="https://maps.app.goo.gl/2eesPVpBnE1YnESw8" target="_blank" rel="noopener noreferrer">Печерський відділ ДРАЦС у м. Києві<br>вул. Цитадельна, 7/10</a></p>
+</div>
+<div class="event-divider"></div>
+<div class="event">
+<span class="event-time">12:00</span>
+<p class="event-name">Фотосесія</p>
+</div>
+<div class="event-divider"></div>
+<div class="event">
+<span class="event-time">14:00</span>
+<p class="event-name">Святковий банкет</p>
+<p class="event-address-label">Адреса</p>
+<p class="event-address"><a href="https://maps.app.goo.gl/VQRhQxKyFxk7zZcMA" target="_blank" rel="noopener noreferrer">Ресторан «Замок Видубичі»<br>м. Київ, Набережно-Печерська дорога, 5</a></p>
+</div>
+</div>
+</section><div class="panel" id="photo3"><img src="img/hero-bg3.jpg" alt="Дмитро і Іванна"></div></div>
+<script>
+const o=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');o.unobserve(x.target)}})},{threshold:.15});
+document.querySelectorAll('.event').forEach(el=>o.observe(el));
+</script>
 </body>
 </html>
