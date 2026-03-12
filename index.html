@@ -7,15 +7,15 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@1,300;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { overflow-x: hidden; background: #fff; }
+    body { overflow-x: hidden; background: #000; }
 
-    /* ══════════════  HERO  ══════════════════════════════════════════ */
-    #hero {
+    /* ── Full-screen photo section ───────────────────────────────── */
+    .photo-screen {
       position: relative;
       width: 100%;
       height: 100vh;
@@ -24,7 +24,7 @@
       overflow: hidden;
     }
 
-    #hero .hero-bg {
+    .photo-screen img {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -32,12 +32,12 @@
       object-fit: cover;
       object-position: center center;
       display: block;
-      z-index: 0;
     }
 
+    /* ── Scroll cue ──────────────────────────────────────────────── */
     @keyframes bounce-cue {
-      0%, 100% { transform: translate(-50%, 0);   opacity: 0.65; }
-      50%       { transform: translate(-50%, 9px); opacity: 1;    }
+      0%, 100% { transform: translate(-50%, 0);   opacity: 0.6; }
+      50%       { transform: translate(-50%, 9px); opacity: 1;   }
     }
     .scroll-cue {
       position: absolute;
@@ -49,103 +49,168 @@
       animation: bounce-cue 2.2s ease-in-out infinite;
     }
 
-    /* ══════════════  SECTION 2  ═════════════════════════════════════ */
-    #invite {
-      background: #fff;
-      padding: 80px 24px 0;
+    /* ══════════════  TIMING SECTION  ════════════════════════════════ */
+    #timing {
+      background: #737373;
+      color: #fff;
+      padding: 64px 24px 72px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      font-family: 'Josefin Sans', sans-serif;
     }
 
-    /* Quotes block */
-    .invite-quotes {
-      max-width: 600px;
-      width: 100%;
+    /* Date header */
+    .timing-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(0.85rem, 2.5vw, 1.05rem);
+      letter-spacing: 0.3em;
+      margin-bottom: 32px;
+      opacity: 0.85;
+    }
+
+    /* "TIMING" title */
+    .timing-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(2.4rem, 8vw, 3.8rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 56px;
+    }
+
+    /* Timeline container */
+    .timeline {
+      position: relative;
       display: flex;
       flex-direction: column;
-      gap: 36px;
+      gap: 56px;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    /* Vertical line */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: calc(50% + 60px);
+      width: 1px;
+      background: rgba(255,255,255,0.3);
+    }
+
+    @media (max-width: 480px) {
+      .timeline::before {
+        right: auto;
+        left: 48px;
+      }
+    }
+
+    /* Single event */
+    .event {
       text-align: center;
-      padding-bottom: 72px;
-    }
-
-    .invite-quotes p {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(1.35rem, 4.5vw, 2rem);
-      color: #2a2a2a;
-      line-height: 1.5;
       opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.9s ease, transform 0.9s ease;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
-
-    .invite-quotes p.visible {
+    .event.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* Photo frame — torn-paper feel */
-    .invite-photo-wrap {
+    .event-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(2.6rem, 9vw, 3.6rem);
+      line-height: 1;
+      margin-bottom: 6px;
       position: relative;
-      width: 100%;
-      max-width: 760px;
+      display: inline-block;
     }
 
-    /* Jagged top edge (SVG mask) */
-    .invite-photo-wrap::before {
+    /* Bracket lines around time */
+    .event-time::before {
       content: '';
-      display: block;
-      width: 100%;
-      height: 48px;
-      background: #fff;
-      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 48' preserveAspectRatio='none'%3E%3Cpath d='M0,48 C150,0 300,40 450,12 C600,-16 750,44 900,18 C1050,-8 1150,36 1200,20 L1200,48 Z' fill='white'/%3E%3C/svg%3E");
-      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 48' preserveAspectRatio='none'%3E%3Cpath d='M0,48 C150,0 300,40 450,12 C600,-16 750,44 900,18 C1050,-8 1150,36 1200,20 L1200,48 Z' fill='white'/%3E%3C/svg%3E");
-      -webkit-mask-size: 100% 100%;
-      mask-size: 100% 100%;
-      position: relative;
-      z-index: 2;
-      margin-bottom: -2px;
+      position: absolute;
+      right: -16px;
+      top: 0;
+      width: 1px;
+      height: 100%;
+      background: rgba(255,255,255,0.5);
     }
-
-    .invite-photo {
-      width: 100%;
-      display: block;
-      object-fit: cover;
-      object-position: center 30%;
-      max-height: 65vh;
-      filter: grayscale(100%);
-    }
-
-    /* Jagged bottom edge */
-    .invite-photo-wrap::after {
+    .event-time::after {
       content: '';
-      display: block;
-      width: 100%;
-      height: 48px;
-      background: #fff;
-      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 48' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C150,48 300,8 450,36 C600,64 750,4 900,30 C1050,56 1150,12 1200,28 L1200,0 Z' fill='white'/%3E%3C/svg%3E");
-      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 48' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C150,48 300,8 450,36 C600,64 750,4 900,30 C1050,56 1150,12 1200,28 L1200,0 Z' fill='white'/%3E%3C/svg%3E");
-      -webkit-mask-size: 100% 100%;
-      mask-size: 100% 100%;
-      position: relative;
-      z-index: 2;
-      margin-top: -2px;
+      position: absolute;
+      right: -16px;
+      bottom: 0;
+      width: 12px;
+      height: 1px;
+      background: rgba(255,255,255,0.5);
     }
 
-    /* Names below photo */
-    .invite-names {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(2rem, 7vw, 3.2rem);
-      color: #2a2a2a;
+    .event-name {
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.8rem, 2.8vw, 1rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+
+    .event-address-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      opacity: 0.7;
+      margin-bottom: 4px;
+    }
+
+    .event-address {
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.65rem, 2.2vw, 0.8rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      line-height: 1.6;
+    }
+
+    .event-address a {
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      transition: border-color 0.3s;
+    }
+    .event-address a:hover {
+      border-color: #fff;
+    }
+
+    /* Divider between events */
+    .event-divider {
+      width: 40px;
+      height: 1px;
+      background: rgba(255,255,255,0.25);
+      margin: 0 auto;
+    }
+
+    /* Bottom quote */
+    .timing-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(1rem, 3.5vw, 1.3rem);
       text-align: center;
-      padding: 48px 24px 80px;
+      max-width: 400px;
+      line-height: 1.6;
+      margin-top: 64px;
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 1s ease 0.2s, transform 1s ease 0.2s;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
     }
-
-    .invite-names.visible {
-      opacity: 1;
+    .timing-quote.visible {
+      opacity: 0.85;
       transform: translateY(0);
     }
   </style>
@@ -153,71 +218,82 @@
 
 <body>
 
-  <!-- ═══════════════  HERO  ═══════════════ -->
-  <section id="hero">
-
-    <img
-      class="hero-bg"
-      src="img/hero-bg.jpg"
-      alt="Весільне фото"
-      loading="eager"
-      fetchpriority="high"
-    />
-
-    <div class="scroll-cue" onclick="document.getElementById('invite').scrollIntoView({behavior:'smooth'})">
-      <svg xmlns="http://www.w3.org/2000/svg"
-           width="28" height="28" viewBox="0 0 24 24"
+  <!-- ═══════════  PHOTO 1  ═══════════ -->
+  <section id="hero" class="photo-screen">
+    <img src="img/hero-bg.jpg" alt="Весільне фото" loading="eager" fetchpriority="high" />
+    <div class="scroll-cue" onclick="document.getElementById('photo2').scrollIntoView({behavior:'smooth'})">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
            fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"
            stroke-linecap="round" stroke-linejoin="round">
         <path d="M19 9l-7 7-7-7"/>
       </svg>
     </div>
-
   </section>
 
-  <!-- ═══════════════  SECTION 2 — INVITE  ═══════════════ -->
-  <section id="invite">
+  <!-- ═══════════  PHOTO 2  ═══════════ -->
+  <section id="photo2" class="photo-screen">
+    <img src="img/hero-bg2.jpg" alt="Дмитро і Іванна" loading="lazy" />
+  </section>
 
-    <div class="invite-quotes">
-      <p>Кажуть, на особливі події запрошують особливих людей</p>
-      <p>Наша особлива подія — весілля, а наші особливі люди — ви.</p>
-      <p>Будемо раді бачити вас на нашому першому сімейному святі !</p>
+  <!-- ═══════════  TIMING  ═══════════ -->
+  <section id="timing">
+
+    <p class="timing-date">12 | 06 | 2026</p>
+    <h2 class="timing-title">Timing</h2>
+
+    <div class="timeline">
+
+      <!-- 10:00 -->
+      <div class="event">
+        <span class="event-time">10:00</span>
+        <p class="event-name">Церемонія розпису</p>
+        <p class="event-address-label">Адреса</p>
+        <p class="event-address">
+          <a href="https://maps.app.goo.gl/2eesPVpBnE1YnESw8" target="_blank" rel="noopener noreferrer">
+            Печерський відділ ДРАЦС у м. Києві<br>вул. Цитадельна, 7/10
+          </a>
+        </p>
+      </div>
+
+      <div class="event-divider"></div>
+
+      <!-- 12:00 -->
+      <div class="event">
+        <span class="event-time">12:00</span>
+        <p class="event-name">Фотосесія</p>
+      </div>
+
+      <div class="event-divider"></div>
+
+      <!-- 14:00 -->
+      <div class="event">
+        <span class="event-time">14:00</span>
+        <p class="event-name">Святковий банкет</p>
+        <p class="event-address-label">Адреса</p>
+        <p class="event-address">
+          <a href="https://maps.app.goo.gl/VQRhQxKyFxk7zZcMA" target="_blank" rel="noopener noreferrer">
+            Ресторан «Замок Видубичі»<br>м. Київ, Набережно-Печерська дорога, 5
+          </a>
+        </p>
+      </div>
+
     </div>
 
-    <div class="invite-photo-wrap">
-      <img
-        class="invite-photo"
-        src="img/hero-bg2.jpg"
-        alt="Дмитро і Іванна"
-        loading="lazy"
-      />
-    </div>
-
-    <p class="invite-names">Дмитро &amp; Іванна</p>
+    <p class="timing-quote">Кольори у яких починається наша історія</p>
 
   </section>
 
   <script>
-    // Reveal on scroll
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
-          // Stagger quotes
-          if (entry.target.tagName === 'P' && entry.target.closest('.invite-quotes')) {
-            const items = [...entry.target.closest('.invite-quotes').querySelectorAll('p')];
-            items.forEach((el, idx) => {
-              setTimeout(() => el.classList.add('visible'), idx * 200);
-            });
-            observer.unobserve(entry.target);
-          } else {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.15 });
 
-    document.querySelectorAll('.invite-quotes p, .invite-names').forEach(el => observer.observe(el));
+    document.querySelectorAll('.event, .timing-quote').forEach(el => observer.observe(el));
   </script>
 
 </body>
