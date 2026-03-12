@@ -27,6 +27,9 @@
       height: 100svh;
       height: 100dvh;
       overflow: hidden;
+      display: block;
+      font-size: 0;
+      line-height: 0;
       /* GPU acceleration — prevents tearing during scroll */
       will-change: transform;
       transform: translateZ(0);
@@ -221,24 +224,7 @@
       margin: 0 auto;
     }
 
-    /* Bottom quote */
-    .timing-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      font-style: italic;
-      font-size: clamp(1rem, 3.5vw, 1.3rem);
-      text-align: center;
-      max-width: 400px;
-      line-height: 1.6;
-      margin-top: 64px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
-    .timing-quote.visible {
-      opacity: 0.85;
-      transform: translateY(0);
-    }
+
   </style>
 </head>
 
@@ -254,15 +240,13 @@
         <path d="M19 9l-7 7-7-7"/>
       </svg>
     </div>
-  </section>
-
-  <!-- ═══════════  PHOTO 2  ═══════════ -->
-  <section id="photo2" class="photo-screen">
+  </section><!--
+  --><!-- ═══════════  PHOTO 2  ═══════════ --><!--
+  --><section id="photo2" class="photo-screen">
     <img src="img/hero-bg2.jpg" alt="Дмитро і Іванна" loading="lazy" />
-  </section>
-
-  <!-- ═══════════  TIMING  ═══════════ -->
-  <section id="timing">
+  </section><!--
+  --><!-- ═══════════  TIMING  ═══════════ --><!--
+  --><section id="timing">
 
     <p class="timing-date">12 | 06 | 2026</p>
     <h2 class="timing-title">Timing</h2>
@@ -305,12 +289,9 @@
 
     </div>
 
-    <p class="timing-quote">Кольори у яких починається наша історія</p>
-
-  </section>
-
-  <!-- ═══════════  PHOTO 3  ═══════════ -->
-  <section id="photo3" class="photo-screen">
+  </section><!--
+  --><!-- ═══════════  PHOTO 3  ═══════════ --><!--
+  --><section id="photo3" class="photo-screen">
     <img src="img/hero-bg3.jpg" alt="Дмитро і Іванна" loading="lazy" />
   </section>
 
@@ -324,7 +305,7 @@
       });
     }, { threshold: 0.15 });
 
-    document.querySelectorAll('.event, .timing-quote').forEach(el => observer.observe(el));
+    document.querySelectorAll('.event').forEach(el => observer.observe(el));
   </script>
 
 </body>
