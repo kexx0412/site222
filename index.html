@@ -259,6 +259,11 @@ body{
   color:#737373;
   border-color:#fff;
 }
+.rsvp-options--drinks{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
 @media(hover:hover){
   .rsvp-option label:hover{
     border-color:rgba(255,255,255,.7);
@@ -412,6 +417,18 @@ body{
 <div class="rsvp-option"><input type="radio" name="guests" id="g4" value="4"><label for="g4">4</label></div>
 </div>
 </div>
+<div class="rsvp-field">
+<span class="rsvp-label">Вкажіть, будь ласка, ваші побажання по алкогольним напоям?</span>
+<span class="rsvp-note">Можна обрати декілька варіантів</span>
+<div class="rsvp-options rsvp-options--drinks">
+<div class="rsvp-option"><input type="checkbox" name="drinks" id="drk1" value="Горілка"><label for="drk1">Горілка</label></div>
+<div class="rsvp-option"><input type="checkbox" name="drinks" id="drk2" value="Коньяк"><label for="drk2">Коньяк</label></div>
+<div class="rsvp-option"><input type="checkbox" name="drinks" id="drk3" value="Шампанське"><label for="drk3">Шампанське</label></div>
+<div class="rsvp-option"><input type="checkbox" name="drinks" id="drk4" value="Вино"><label for="drk4">Вино</label></div>
+<div class="rsvp-option"><input type="checkbox" name="drinks" id="drk5" value="Ром"><label for="drk5">Ром</label></div>
+<div class="rsvp-option"><input type="checkbox" name="drinks" id="drk6" value="Віські"><label for="drk6">Віські</label></div>
+</div>
+</div>
 <button type="submit" class="rsvp-submit">Надіслати відповідь</button>
 </form>
 <div class="rsvp-success" id="rsvpSuccess" style="display:none">
@@ -454,7 +471,8 @@ document.getElementById('rsvpForm').addEventListener('submit',async function(e){
   const attend=document.querySelector('input[name="attend"]:checked')?.value||'—';
   const location=document.querySelector('input[name="location"]:checked')?.value||'—';
   const guests=document.querySelector('input[name="guests"]:checked')?.value||'—';
-  const text=`📩 Нове RSVP!\n\n👤 Ім'я: ${name}\n✅ Буде на весіллі: ${attend}\n📍 На розписі/ресторані: ${location}\n👥 Кількість гостей: ${guests}`;
+  const drinks=[...document.querySelectorAll('input[name="drinks"]:checked')].map(c=>c.value).join(', ')||'—';
+  const text=`📩 Нове RSVP!\n\n👤 Ім'я: ${name}\n✅ Буде на весіллі: ${attend}\n📍 На розписі/ресторані: ${location}\n👥 Кількість гостей: ${guests}\n🍷 Напої: ${drinks}`;
   try{
     const r=await fetch(`https://api.telegram.org/bot8677076892:AAGV_fewJkh99TaytOTAR7DXak-uKda_J9o/sendMessage`,{
       method:'POST',
