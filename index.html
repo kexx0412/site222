@@ -174,6 +174,137 @@ body{
   background:rgba(255,255,255,.25);
   margin:0 auto;
 }
+
+/* === RSVP SECTION === */
+#rsvp{
+  background:#737373;
+  color:#fff;
+  padding:56px 24px 64px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font-family:'Josefin Sans',sans-serif;
+  flex-shrink:0;
+}
+.rsvp-title{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:400;
+  font-size:clamp(2rem,7vw,3.2rem);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:40px;
+  text-align:center;
+}
+.rsvp-form{
+  width:100%;
+  max-width:420px;
+  display:flex;
+  flex-direction:column;
+  gap:32px;
+}
+.rsvp-field{display:flex;flex-direction:column;gap:8px}
+.rsvp-label{
+  font-family:'Josefin Sans',sans-serif;
+  font-weight:300;
+  font-size:clamp(.7rem,2.4vw,.85rem);
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  opacity:.85;
+}
+.rsvp-input{
+  background:transparent;
+  border:none;
+  border-bottom:1px solid rgba(255,255,255,.35);
+  color:#fff;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;
+  padding:8px 0;
+  outline:none;
+  transition:border-color .3s;
+}
+.rsvp-input::placeholder{color:rgba(255,255,255,.35)}
+.rsvp-input:focus{border-color:#fff}
+.rsvp-options{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.rsvp-option{
+  flex:1;
+  min-width:0;
+}
+.rsvp-option input{display:none}
+.rsvp-option label{
+  display:block;
+  text-align:center;
+  padding:10px 8px;
+  border:1px solid rgba(255,255,255,.3);
+  font-family:'Josefin Sans',sans-serif;
+  font-weight:300;
+  font-size:clamp(.7rem,2.2vw,.82rem);
+  letter-spacing:.15em;
+  cursor:pointer;
+  transition:all .3s;
+  white-space:nowrap;
+  -webkit-user-select:none;
+  user-select:none;
+}
+.rsvp-option input:checked+label{
+  background:#fff;
+  color:#737373;
+  border-color:#fff;
+}
+@media(hover:hover){
+  .rsvp-option label:hover{
+    border-color:rgba(255,255,255,.7);
+  }
+}
+.rsvp-note{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;
+  font-style:italic;
+  font-size:.85rem;
+  opacity:.6;
+  margin-top:-4px;
+}
+.rsvp-submit{
+  margin-top:8px;
+  padding:14px 0;
+  background:#fff;
+  color:#737373;
+  border:none;
+  font-family:'Josefin Sans',sans-serif;
+  font-weight:300;
+  font-size:clamp(.75rem,2.5vw,.9rem);
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:all .3s;
+}
+.rsvp-submit:hover{
+  background:rgba(255,255,255,.85);
+}
+.rsvp-submit:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+.rsvp-success{
+  text-align:center;
+  padding:40px 0;
+}
+.rsvp-success h3{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:400;
+  font-size:clamp(1.6rem,5vw,2.4rem);
+  margin-bottom:12px;
+}
+.rsvp-success p{
+  font-family:'Josefin Sans',sans-serif;
+  font-weight:200;
+  font-size:.9rem;
+  opacity:.7;
+  letter-spacing:.1em;
+}
 </style>
 </head>
 <body>
@@ -200,10 +331,73 @@ body{
 <p class="event-address"><a href="https://maps.app.goo.gl/VQRhQxKyFxk7zZcMA" target="_blank" rel="noopener noreferrer">Ресторан «Замок Видубичі»<br>м. Київ, Набережно-Печерська дорога, 5</a></p>
 </div>
 </div>
-</section><div class="panel" id="photo3"><img src="img/hero-bg3.jpg" alt="Дмитро і Іванна"></div></div>
+</section><div class="panel" id="photo3"><img src="img/hero-bg3.jpg" alt="Дмитро і Іванна"></div><section id="rsvp">
+<h2 class="rsvp-title">Підтвердження присутності</h2>
+<form class="rsvp-form" id="rsvpForm">
+<div class="rsvp-field">
+<span class="rsvp-label">Ваше ім'я та прізвище</span>
+<input type="text" class="rsvp-input" id="rsvpName" placeholder="Ім'я та прізвище" required>
+</div>
+<div class="rsvp-field">
+<span class="rsvp-label">Чи будете ви на весіллі?</span>
+<div class="rsvp-options">
+<div class="rsvp-option"><input type="radio" name="attend" id="attendYes" value="Так" required><label for="attendYes">Так</label></div>
+<div class="rsvp-option"><input type="radio" name="attend" id="attendNo" value="Ні"><label for="attendNo">Ні</label></div>
+</div>
+<span class="rsvp-note">Відповідь до 15.05.2026</span>
+</div>
+<div class="rsvp-field">
+<span class="rsvp-label">Чи будете ви на церемонії розпису в ДРАЦС?</span>
+<div class="rsvp-options">
+<div class="rsvp-option"><input type="radio" name="location" id="locCeremony" value="Будемо на розписі" required><label for="locCeremony">Будемо на розписі</label></div>
+<div class="rsvp-option"><input type="radio" name="location" id="locRestaurant" value="Будемо в ресторані"><label for="locRestaurant">Будемо в ресторані</label></div>
+</div>
+</div>
+<div class="rsvp-field">
+<span class="rsvp-label">Яка кількість гостей буде від вас?</span>
+<div class="rsvp-options">
+<div class="rsvp-option"><input type="radio" name="guests" id="g1" value="1" required><label for="g1">1</label></div>
+<div class="rsvp-option"><input type="radio" name="guests" id="g2" value="2"><label for="g2">2</label></div>
+<div class="rsvp-option"><input type="radio" name="guests" id="g3" value="3"><label for="g3">3</label></div>
+<div class="rsvp-option"><input type="radio" name="guests" id="g4" value="4"><label for="g4">4</label></div>
+</div>
+</div>
+<button type="submit" class="rsvp-submit">Надіслати відповідь</button>
+</form>
+<div class="rsvp-success" id="rsvpSuccess" style="display:none">
+<h3>Дякуємо!</h3>
+<p>Вашу відповідь отримано</p>
+</div>
+</section><div class="panel" id="photo4"><img src="img/hero-bg4.jpg" alt="Дмитро і Іванна"></div></div>
 <script>
 const o=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');o.unobserve(x.target)}})},{threshold:.15});
 document.querySelectorAll('.event').forEach(el=>o.observe(el));
+
+document.getElementById('rsvpForm').addEventListener('submit',async function(e){
+  e.preventDefault();
+  const btn=this.querySelector('.rsvp-submit');
+  btn.disabled=true;
+  btn.textContent='Надсилаємо...';
+  const name=document.getElementById('rsvpName').value.trim();
+  const attend=document.querySelector('input[name="attend"]:checked')?.value||'—';
+  const location=document.querySelector('input[name="location"]:checked')?.value||'—';
+  const guests=document.querySelector('input[name="guests"]:checked')?.value||'—';
+  const text=`📩 Нове RSVP!\n\n👤 Ім'я: ${name}\n✅ Буде на весіллі: ${attend}\n📍 На розписі/ресторані: ${location}\n👥 Кількість гостей: ${guests}`;
+  try{
+    const r=await fetch(`https://api.telegram.org/bot8677076892:AAGV_fewJkh99TaytOTAR7DXak-uKda_J9o/sendMessage`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:'719294357',text:text})
+    });
+    if(!r.ok)throw new Error('send failed');
+    this.style.display='none';
+    document.getElementById('rsvpSuccess').style.display='block';
+  }catch(err){
+    btn.disabled=false;
+    btn.textContent='Надіслати відповідь';
+    alert('Помилка надсилання. Спробуйте ще раз.');
+  }
+});
 </script>
 </body>
 </html>
