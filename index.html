@@ -619,7 +619,7 @@ document.getElementById('rsvpForm').addEventListener('submit',async function(e){
     const r=await fetch(`https://api.telegram.org/bot8677076892:AAGV_fewJkh99TaytOTAR7DXak-uKda_J9o/sendMessage`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({chat_id:'719294357',text:text})
+      body:JSON.stringify({chat_id:'687420231',text:text})
     });
     if(!r.ok)throw new Error('send failed');
     this.style.display='none';
