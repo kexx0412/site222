@@ -77,7 +77,7 @@ body{
   flex-direction:column;
   align-items:center;
   justify-content:flex-start;
-  padding:clamp(16px,4vw,36px) clamp(20px,6vw,48px) clamp(16px,4vw,32px);
+  padding:clamp(80px,20vw,130px) clamp(20px,6vw,48px) clamp(16px,4vw,32px);
   text-align:center;
   gap:clamp(12px,3vw,22px);
   pointer-events:none;
@@ -111,7 +111,19 @@ body{
   transform:translateY(14px);
   transition:opacity 1s ease .6s, transform 1s ease .6s;
 }
-.photo2-overlay.visible .photo2-name{
+.photo2-date{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;
+  font-size:clamp(.8rem,2.5vw,1rem);
+  letter-spacing:.3em;
+  color:rgba(255,255,255,.8);
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity 1s ease .8s, transform 1s ease .8s;
+  margin-bottom:clamp(16px,4vw,28px);
+}
+.photo2-overlay.visible .photo2-name,
+.photo2-overlay.visible .photo2-date{
   opacity:1;
   transform:translateY(0);
 }
@@ -483,8 +495,7 @@ body{
 </style>
 </head>
 <body>
-<div id="wrapper"><div class="panel" id="hero"><img src="img/hero-bg.jpg" alt="Весільне фото"><div class="countdown-overlay" id="countdown"><div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-lbl">днів</span></div><div class="countdown-sep">:</div><div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-lbl">годин</span></div><div class="countdown-sep">:</div><div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-lbl">хвилин</span></div><div class="countdown-sep">:</div><div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-lbl">секунд</span></div></div><div class="scroll-cue" onclick="document.getElementById('photo2').scrollIntoView({behavior:'smooth'})"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></div></div><div class="panel" id="photo2"><img src="img/hero-bg2.jpg" alt="Дмитро і Іванна" class="panel-reveal"><div class="photo2-overlay" id="photo2text"><p class="photo2-line">Кажуть, на особливі події запрошують особливих людей.</p><p class="photo2-line nth2">Наша особлива подія — весілля, а наші особливі люди — ви.</p><p class="photo2-line nth3">Будемо раді бачити вас на нашому першому сімейному святі!</p><span class="photo2-name">Дмитро & Іванна</span></div></div><section id="timing">
-<p class="timing-date">12 | 06 | 2026</p>
+<div id="wrapper"><div class="panel" id="hero"><img src="img/hero-bg.jpg" alt="Весільне фото"><div class="countdown-overlay" id="countdown"><div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-lbl">днів</span></div><div class="countdown-sep">:</div><div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-lbl">годин</span></div><div class="countdown-sep">:</div><div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-lbl">хвилин</span></div><div class="countdown-sep">:</div><div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-lbl">секунд</span></div></div><div class="scroll-cue" onclick="document.getElementById('photo2').scrollIntoView({behavior:'smooth'})"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></div></div><div class="panel" id="photo2"><img src="img/hero-bg2.jpg" alt="Дмитро і Іванна" class="panel-reveal"><div class="photo2-overlay" id="photo2text"><p class="photo2-line">Кажуть, на особливі події запрошують особливих людей.</p><p class="photo2-line nth2">Наша особлива подія — весілля, а наші особливі люди — ви.</p><p class="photo2-line nth3">Будемо раді бачити вас на нашому першому сімейному святі!</p><span class="photo2-name">Дмитро & Іванна</span><span class="photo2-date">12 | 06 | 2026</span></div></div><section id="timing">
 <h2 class="timing-title">Timing</h2>
 <div class="timeline">
 <div class="event">
