@@ -423,6 +423,65 @@ body{
   margin-top:2px;
 }
 
+/* === PHOTO3 OVERLAY === */
+.photo3-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding:clamp(44px,12vw,80px) clamp(20px,6vw,48px) clamp(20px,5vw,40px);
+  text-align:center;
+  gap:clamp(20px,5vw,36px);
+  pointer-events:none;
+}
+.photo3-title{
+  font-family:'Playfair Display',serif;
+  font-weight:500;
+  font-size:clamp(1.4rem,5.5vw,2.2rem);
+  color:#2a2a2a;
+  line-height:1.3;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .8s ease, transform .8s ease;
+}
+.photo3-subtitle{
+  font-family:'Playfair Display',serif;
+  font-weight:500;
+  font-size:clamp(1.2rem,4.5vw,1.8rem);
+  color:#2a2a2a;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .8s ease .2s, transform .8s ease .2s;
+}
+.photo3-text{
+  font-family:'Josefin Sans',sans-serif;
+  font-weight:300;
+  font-size:clamp(.7rem,2.6vw,.9rem);
+  color:#2a2a2a;
+  line-height:1.8;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  max-width:420px;
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .8s ease .35s, transform .8s ease .35s;
+}
+.photo3-text strong{
+  font-weight:400;
+}
+.photo3-overlay.visible .photo3-title,
+.photo3-overlay.visible .photo3-subtitle,
+.photo3-overlay.visible .photo3-text{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+
 
 </style>
 </head>
@@ -450,7 +509,7 @@ body{
 <p class="event-address"><a href="https://maps.app.goo.gl/VQRhQxKyFxk7zZcMA" target="_blank" rel="noopener noreferrer">Ресторан «Замок Видубичі»<br>м. Київ, Набережно-Печерська дорога, 5</a></p>
 </div>
 </div>
-</section><div class="panel" id="photo3"><img src="img/hero-bg3.jpg" alt="Дмитро і Іванна" class="panel-reveal"></div><section id="rsvp">
+</section><div class="panel" id="photo3"><img src="img/hero-bg3.jpg" alt="Дмитро і Іванна" class="panel-reveal"><div class="photo3-overlay" id="photo3text"><h2 class="photo3-title">Кольори у яких<br>починається наша історія</h2><h3 class="photo3-subtitle">Подарунки</h3><p class="photo3-text">Просимо вас не дарувати нам <strong>квіти</strong>, ми не встигнемо <strong>насолодитися</strong> їх красою, натомість подаруйте <strong>пляшечку</strong> будь-якого вашого улюбленого <strong>алкоголю</strong> нам для поповнення <strong>сімейного бару</strong>.</p></div></div><section id="rsvp">
 <h2 class="rsvp-title">Підтвердження присутності</h2>
 <form class="rsvp-form" id="rsvpForm">
 <div class="rsvp-field">
@@ -490,7 +549,7 @@ body{
 <div class="rsvp-option"><input type="checkbox" name="drinks" id="drk3" value="Шампанське"><label for="drk3">Шампанське</label></div>
 <div class="rsvp-option"><input type="checkbox" name="drinks" id="drk4" value="Вино"><label for="drk4">Вино</label></div>
 <div class="rsvp-option"><input type="checkbox" name="drinks" id="drk5" value="Ром"><label for="drk5">Ром</label></div>
-<div class="rsvp-option"><input type="checkbox" name="drinks" id="drk6" value="Віські"><label for="drk6">Віські</label></div>
+<div class="rsvp-option"><input type="checkbox" name="drinks" id="drk6" value="Віскі"><label for="drk6">Віскі</label></div>
 </div>
 </div>
 <button type="submit" class="rsvp-submit">Надіслати відповідь</button>
@@ -510,6 +569,8 @@ document.querySelectorAll('.panel-reveal').forEach(el=>ro.observe(el));
 const ro2=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');ro2.unobserve(x.target)}})},{threshold:.2});
 const p2text=document.getElementById('photo2text');
 if(p2text)ro2.observe(p2text);
+const p3text=document.getElementById('photo3text');
+if(p3text)ro2.observe(p3text);
 
 // Countdown → June 12, 2026, 10:00 AM Kyiv (EEST UTC+3)
 (function(){
