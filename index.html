@@ -154,11 +154,10 @@ body{
   width:100%;
 }
 .timing-title{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Playfair Display',serif;
   font-weight:400;
   font-size:clamp(2.4rem,8vw,3.8rem);
-  letter-spacing:.15em;
-  text-transform:uppercase;
+  letter-spacing:.08em;
   margin-bottom:48px;
   text-align:center;
   width:100%;
@@ -205,11 +204,10 @@ body{
   background:rgba(255,255,255,.5);
 }
 .event-name{
-  font-family:'Josefin Sans',sans-serif;
-  font-weight:300;
-  font-size:clamp(.8rem,2.8vw,1rem);
-  letter-spacing:.25em;
-  text-transform:uppercase;
+  font-family:'Cormorant Garamond',serif;
+  font-weight:500;
+  font-size:clamp(1.1rem,3.5vw,1.4rem);
+  letter-spacing:.05em;
   margin-top:16px;
   margin-bottom:6px;
 }
@@ -221,11 +219,10 @@ body{
   margin-bottom:4px;
 }
 .event-address{
-  font-family:'Josefin Sans',sans-serif;
+  font-family:'Cormorant Garamond',serif;
   font-weight:300;
-  font-size:clamp(.65rem,2.2vw,.8rem);
-  letter-spacing:.15em;
-  text-transform:uppercase;
+  font-size:clamp(.85rem,2.8vw,1rem);
+  letter-spacing:.03em;
   line-height:1.6;
 }
 .event-address a{
@@ -253,11 +250,10 @@ body{
   flex-shrink:0;
 }
 .rsvp-title{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Playfair Display',serif;
   font-weight:400;
   font-size:clamp(2rem,7vw,3.2rem);
-  letter-spacing:.12em;
-  text-transform:uppercase;
+  letter-spacing:.06em;
   margin-bottom:40px;
   text-align:center;
 }
@@ -449,31 +445,32 @@ body{
   transition:opacity .8s ease, transform .8s ease;
 }
 .photo3-subtitle{
-  font-family:'Playfair Display',serif;
-  font-weight:500;
-  font-size:clamp(1.2rem,4.5vw,1.8rem);
+  font-family:'Cormorant Garamond',serif;
+  font-weight:400;
+  font-size:clamp(1.6rem,6vw,2.4rem);
   color:#2a2a2a;
-  text-transform:uppercase;
-  letter-spacing:.1em;
+  letter-spacing:.08em;
+  margin-top:clamp(120px,38vw,230px);
   opacity:0;
   transform:translateY(18px);
   transition:opacity .8s ease .2s, transform .8s ease .2s;
 }
 .photo3-text{
-  font-family:'Josefin Sans',sans-serif;
+  font-family:'Cormorant Garamond',serif;
   font-weight:300;
-  font-size:clamp(.7rem,2.6vw,.9rem);
+  font-style:italic;
+  font-size:clamp(.95rem,3.5vw,1.2rem);
   color:#2a2a2a;
   line-height:1.8;
-  text-transform:uppercase;
-  letter-spacing:.15em;
+  letter-spacing:.02em;
   max-width:420px;
   opacity:0;
   transform:translateY(18px);
   transition:opacity .8s ease .35s, transform .8s ease .35s;
 }
 .photo3-text strong{
-  font-weight:400;
+  font-weight:500;
+  font-style:normal;
 }
 .photo3-overlay.visible .photo3-title,
 .photo3-overlay.visible .photo3-subtitle,
@@ -488,7 +485,7 @@ body{
 <body>
 <div id="wrapper"><div class="panel" id="hero"><img src="img/hero-bg.jpg" alt="Весільне фото"><div class="countdown-overlay" id="countdown"><div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-lbl">днів</span></div><div class="countdown-sep">:</div><div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-lbl">годин</span></div><div class="countdown-sep">:</div><div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-lbl">хвилин</span></div><div class="countdown-sep">:</div><div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-lbl">секунд</span></div></div><div class="scroll-cue" onclick="document.getElementById('photo2').scrollIntoView({behavior:'smooth'})"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"/></svg></div></div><div class="panel" id="photo2"><img src="img/hero-bg2.jpg" alt="Дмитро і Іванна" class="panel-reveal"><div class="photo2-overlay" id="photo2text"><p class="photo2-line">Кажуть, на особливі події запрошують особливих людей.</p><p class="photo2-line nth2">Наша особлива подія — весілля, а наші особливі люди — ви.</p><p class="photo2-line nth3">Будемо раді бачити вас на нашому першому сімейному святі!</p><span class="photo2-name">Дмитро & Іванна</span></div></div><section id="timing">
 <p class="timing-date">12 | 06 | 2026</p>
-<h2 class="timing-title">Timing</h2>
+<h2 class="timing-title">Timetable</h2>
 <div class="timeline">
 <div class="event">
 <span class="event-time">10:00</span>
